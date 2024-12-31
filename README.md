@@ -8,7 +8,7 @@ Welcome to my Advent of Code 2024 repository! This project contains my solutions
 
 ## Project Structure
 
-Each day's challenge will be in its own directory under the `src` folder. For example:
+Each day's challenge will be in its own file under the `src/days` folder. For example:
 
 ```
 src/

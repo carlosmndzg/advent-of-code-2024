@@ -27,13 +27,8 @@ fn solve_b(input: &str) -> i32 {
         *entry += 1;
     }
 
-    left.iter().fold(0, |acc, n| {
-        acc + *n
-            * match map.get(n) {
-                Some(&n) => n,
-                None => 0,
-            }
-    })
+    left.iter()
+        .fold(0, |acc, n| acc + *n * map.get(n).copied().unwrap_or(0))
 }
 
 fn get_lists(input: &str) -> (Vec<i32>, Vec<i32>) {

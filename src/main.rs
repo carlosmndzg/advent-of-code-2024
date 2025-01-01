@@ -17,6 +17,7 @@ fn run_day(day: &str) {
     match day {
         "01" => days::day01::run(),
         "02" => days::day02::run(),
+        "03" => days::day03::run(),
         _ => println!("Day {} not implemented yet!", day),
     }
 }

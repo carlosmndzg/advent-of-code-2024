@@ -7,69 +7,10 @@ pub fn run() {
     println!("Solution for day 3b: {}", solve_b(&input));
 }
 
-const SHAPE: &str = "mul(x,x)";
-const FIRST_NUMBER_PLACEHOLDER: usize = 4;
-const MIN_LENGTH_NUMBER: usize = 1;
-const MAX_LENGTH_NUMBER: usize = 3;
-
-// Implementation of the exercise without using regular expressions
 fn solve_a(input: &str) -> i32 {
-    let shape: Vec<char> = SHAPE.chars().collect();
-    let input: Vec<char> = input.chars().collect();
-    let mut sum = 0;
-    let mut i = 0;
-    let mut position = 0;
-    let mut first_number = 0;
-    let mut second_number = 0;
-
-    while i < input.len() {
-        let c = input[i];
-
-        if shape[position] == 'x' {
-            let mut j = 0;
-
-            while (i + j) < input.len() && input[i + j].is_ascii_digit() {
-                j += 1;
-            }
-
-            if j < MIN_LENGTH_NUMBER || j > MAX_LENGTH_NUMBER {
-                position = 0
-            } else {
-                let number = (&input[i..(i + j)])
-                    .iter()
-                    .collect::<String>()
-                    .parse::<i32>()
-                    .unwrap();
-
-                if position == FIRST_NUMBER_PLACEHOLDER {
-                    first_number = number;
-                } else {
-                    second_number = number;
-                }
-
-                position += 1;
-            }
-
-            i += j;
-        } else if c == shape[position] {
-            if position == shape.len() - 1 {
-                sum += first_number * second_number;
-                position = 0
-            } else {
-                position += 1;
-            }
-
-            i += 1;
-        } else {
-            position = if c == 'm' { 1 } else { 0 };
-            i += 1;
-        }
-    }
-
-    sum
+    get_mul_values(input).iter().map(|v| v.1).sum()
 }
 
-// Implementation of the exercise with regular expression because it is more complex.
 fn solve_b(input: &str) -> i32 {
     let mut mul_values = get_mul_values(input).into_iter().peekable();
     let mut do_values = get_do_values(input).into_iter().peekable();
